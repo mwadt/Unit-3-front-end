@@ -13,3 +13,5 @@ function navbar({clickedNavbar}) {
         </>
     )
 }
+
+export default navbar;

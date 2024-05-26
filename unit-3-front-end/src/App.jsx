@@ -1,4 +1,5 @@
 
+import { set } from 'mongoose'
 import './App.css'
 
 function App() {
@@ -18,5 +19,20 @@ function App() {
   }
   )
 }
+
+  const handleClick = (recipe) => {
+    setSelectedRecipe(recipe)
+    setView('show')
+  }
+
+  const clickedNavbar = (page) => {
+    setView(page)
+  }
+
+  const handleDelete = async (recipe) => { 
+    const deletedRecipe = await RecipeList.delete(recipe)
+    getRecipes()
+    setView('index')
+  }
 
 export default App
