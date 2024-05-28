@@ -3,7 +3,7 @@ import { get, set } from 'mongoose'
 import './App.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { createRecipe } from './services/recipeService.js'
+import Create from './Create/Create.jsx'
 import Navbar from './Navbar/Navbar'
 
 const mockData=[
@@ -21,27 +21,14 @@ function App() {
     ingredients: '',
     instructions: ''
   })
+  const [pageDisplay, setPageDisplay] = useState('home')
   const getRecipes = async () => { 
     // const allRecipes = await RecipeList.index()
     // setRecipeList(allRecipes)
   } 
 
 useEffect(() => { getRecipes()}, [])
-  const handleCreate = async (e) => {
-    e.preventDefault()
-    console.log(e.target.name.value)
-    // const newRecipe = await createRecipe({
-    //   name: e.target.name.value, 
-    //   ingredients: e.target.ingredients.value,
-    //   instructions: e.target.instructions.value
-      
-    // })
-    setForm({ 
-      name: '', 
-      ingredients: '', 
-      instructions: ''
-    })
-  }
+  
 
   // const handleClick = (recipe) => {
   //   setSelectedRecipe(recipe)
@@ -64,17 +51,11 @@ useEffect(() => { getRecipes()}, [])
 
   return (
 <>
-  <Navbar />
+  <Navbar setPageDisplay={setPageDisplay}/>
+  {pageDisplay === 'home' && 
    <h1>Welcome to the Recipe App!</h1>
-   <form onSubmit={handleCreate} >
-      <label htmlFor="name">Name</label>
-      <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} type="text" name="name" id="name" />
-      <label htmlFor="ingredients">Ingredients</label>
-      <input value={form.ingredients} onChange={(e) => setForm({...form, ingredients: e.target.value})} type="text" name="ingredients" id="ingredients" />
-      <label htmlFor="instructions">Instructions</label>
-      <input value={form.instructions} onChange={(e) => setForm({...form, instructions: e.target.value})} name="instructions" id="instructions" />
-      <button type="submit">Add Recipe</button>
-   </form>
+  }
+  
    
    {mockData.map((recipe, i) => {
       return <div key={i}>

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { createRecipe } from '../services/recipeService.js'
 
-function create({ handleCreate }) {
+function Create() {
   const [recipe, setRecipe] = useState({
     name: "",
     ingredients: "",
@@ -11,8 +12,11 @@ function create({ handleCreate }) {
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
 
+  
+
+
   return (
-    <form onSubmit={ () => handleCreate(recipe) }> 
+    <form onSubmit={ () => createRecipe(recipe) }> 
         <label htmlFor="name">Name</label> 
         <input 
             type="text" 
@@ -44,4 +48,4 @@ function create({ handleCreate }) {
   );
 }
 
-export default create; 
+export default Create; 
