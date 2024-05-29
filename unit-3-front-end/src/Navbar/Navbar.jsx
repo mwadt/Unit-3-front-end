@@ -8,7 +8,7 @@ function Navbar({ setPageDisplay }) {
             <ul>
                 <li onClick={() => setPageDisplay('home')}>Home</li>
                 <li onClick={() => setPageDisplay("create")}>New Recipe</li>
-                <li onClick={() => setPageDisplay("gitshow")}>All Recipes</li>
+                <li onClick={() => setPageDisplay("list")}>All Recipes</li>
             </ul>
             
         </div>

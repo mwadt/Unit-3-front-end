@@ -16,7 +16,12 @@ function Create() {
 
 
   return (
-    <form onSubmit={ () => createRecipe(recipe) }> 
+    <form onSubmit={ (e) => {
+      e.preventDefault()
+      createRecipe(recipe) 
+    }  
+    }> 
+      
         <label htmlFor="name">Name</label> 
         <input 
             type="text" 

@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { updateRecipe } from '../services/recipeService.js'
 
-function EditRecipe({ recipe, handleUpdate}) {
+function Edit({ recipe, id}) {
 
-    const [form, setForm] = useState({
+    const [formData, setFormData] = useState({
         name: recipe.name,
         ingredients: recipe.ingredients,
         instructions: recipe.instructions,
@@ -12,13 +13,14 @@ function EditRecipe({ recipe, handleUpdate}) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        updateRecipe(id, formData)
+    };
+
     return (
-        <form
-            onSubmit={(e) => {
-                e.preventDefault();
-                handleUpdate(formData);
-            }}
-        >
+        <form onSubmit={ handleSubmit } >
+        
             <label htmlFor="name">Name</label>
             <input
                 type="text"
@@ -52,15 +54,4 @@ function EditRecipe({ recipe, handleUpdate}) {
 
 
 
-export default function Edit() {
-    const [recipe, setRecipe] = useState({
-        name: "",
-        ingredients: "",
-        instructions: "",
-    });
-    })
-    
-    return (
-        
-    )
-}
+export default Edit

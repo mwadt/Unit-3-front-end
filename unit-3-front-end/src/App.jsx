@@ -5,6 +5,9 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Create from './Create/Create.jsx'
 import Navbar from './Navbar/Navbar'
+import Edit from './Edit/Edit'
+import List from './List/List'
+import { deleteRecipe } from './services/recipeService'
 
 const mockData=[
   {name: 'test', ingredients: 'test', instructions: 'test', id: 1},
@@ -14,19 +17,15 @@ const mockData=[
 ]
 function App() {
   const [recipeList, setRecipeList] = useState([])
-  const [showEdit, setShowEdit] = useState(0)
-  const [form, setForm] = useState({
-
-    name: '',
-    ingredients: '',
-    instructions: ''
-  })
+  const [editId, setEditId] = useState(0)
+ 
   const [pageDisplay, setPageDisplay] = useState('home')
   const getRecipes = async () => { 
     // const allRecipes = await RecipeList.index()
     // setRecipeList(allRecipes)
   } 
 
+  
 useEffect(() => { getRecipes()}, [])
   
 
@@ -40,11 +39,11 @@ useEffect(() => { getRecipes()}, [])
   // }
 
   const handleDelete = async (id) => { 
-    // const deletedRecipe = await RecipeList.delete(id)
-    // getRecipes()
+   deleteRecipe(id)
    console.log('delete', id)
    getRecipes()
   }
+//set page display and set edit id
 
 
 
@@ -54,28 +53,18 @@ useEffect(() => { getRecipes()}, [])
   <Navbar setPageDisplay={setPageDisplay}/>
   {pageDisplay === 'home' && 
    <h1>Welcome to the Recipe App!</h1>
+  }  
+  {pageDisplay === 'create' &&
+    <Create />
+  }
+  {pageDisplay === 'edit' &&
+    <Edit id={ editId }/>
+  }
+  {pageDisplay === 'list' &&
+    <List allRecipes={mockData} handleDelete={handleDelete}/>
   }
   
    
-   {mockData.map((recipe, i) => {
-      return <div key={i}>
-        <h1>{recipe.name}</h1>
-        <h2>{recipe.ingredients}</h2>
-        <h3>{recipe.instructions}</h3>
-        <button onClick={() => handleDelete(recipe.id)}>Delete</button>
-        <button onClick={() => setShowEdit(recipe.id)}> Update</button>
-        {showEdit === recipe.id && <form>   
-          <label htmlFor="name">Name</label>
-            <input value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} type="text" name="name" id="name" />
-            <label htmlFor="ingredients">Ingredients</label>
-            <input value={form.ingredients} onChange={(e) => setForm({...form, ingredients: e.target.value})} type="text" name="ingredients" id="ingredients" />
-            <label htmlFor="instructions">Instructions</label>
-            <input value={form.instructions} onChange={(e) => setForm({...form, instructions: e.target.value})} name="instructions" id="instructions" />
-            <button type="submit">Update Recipe</button>
-        </form>}
-      </div>
-   }
-  )}
 </>
   )
 }
