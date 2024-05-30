@@ -8,6 +8,7 @@ import Navbar from './Navbar/Navbar'
 import Edit from './Edit/Edit'
 import List from './List/List'
 import { deleteRecipe } from './services/recipeService'
+import { getAllRecipes } from './services/recipeService'
 
 const mockData=[
   {name: 'test', ingredients: 'test', instructions: 'test', id: 1},
@@ -20,13 +21,17 @@ function App() {
   const [editId, setEditId] = useState(0)
  
   const [pageDisplay, setPageDisplay] = useState('home')
+
   const getRecipes = async () => { 
-    // const allRecipes = await RecipeList.index()
+    const allRecipes = await getAllRecipes()
+    setRecipeList(allRecipes); 
     // setRecipeList(allRecipes)
   } 
 
   
-useEffect(() => { getRecipes()}, [])
+useEffect(() => {
+   getRecipes()}, 
+   [])
   
 
   // const handleClick = (recipe) => {
@@ -39,7 +44,7 @@ useEffect(() => { getRecipes()}, [])
   // }
 
   const handleDelete = async (id) => { 
-   deleteRecipe(id)
+   await deleteRecipe(id)
    console.log('delete', id)
    getRecipes()
   }
@@ -61,7 +66,7 @@ useEffect(() => { getRecipes()}, [])
     <Edit id={ editId }/>
   }
   {pageDisplay === 'list' &&
-    <List allRecipes={mockData} handleDelete={handleDelete}/>
+    <List allRecipes={recipeList} handleDelete={handleDelete}/>
   }
   
    

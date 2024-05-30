@@ -1,4 +1,4 @@
-
+import React from 'react'
 
 function List({ allRecipes, handleDelete }) {
     console.log(allRecipes)
@@ -9,12 +9,14 @@ function List({ allRecipes, handleDelete }) {
      {allRecipes.map((recipe) => {
         return (
             <>
-            <div key={recipe.id}>
-            <h3>{recipe.name}</h3>
-            <p>{recipe.ingredients}</p>
-            <p>{recipe.instructions}</p>
-            <button onClick={() => handleDelete(recipe.id)}>Delete</button>
-            {/* <button onClick={() => setEditId(recipe.id)}>Edit</button> */}
+            <div key={recipe._id}>
+                <h3>{recipe.name}</h3>
+                <p>{recipe.cuisineType}</p>
+                <p>{recipe.ingredients}</p>
+                {/* <p>{recipe.ingredients}</p> */}
+                
+                <button onClick={() => handleDelete(recipe._id)}>Delete</button>
+                <button onClick={() => setEditId(recipe._id)}>Edit</button>
             </div>
             </>
         )
@@ -22,10 +24,9 @@ function List({ allRecipes, handleDelete }) {
         }
     )
   
-
     }
 
-</>
+    </>
 )
 }
 
