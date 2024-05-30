@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createRecipe, getAllRecipes } from '../services/recipeService.js'
 import { get } from "mongoose";
 
-function Create() {
+function Create({setPageDisplay, getRecipes}) {
   const [recipe, setRecipe] = useState({
     name: "",
     ingredients: "",
@@ -19,9 +19,11 @@ function Create() {
 
 
   return (
-    <form onSubmit={ (e) => {
+    <form onSubmit={ async (e) => {
       e.preventDefault()
-      createRecipe(recipe) 
+      await createRecipe(recipe)
+      getRecipes()
+      setPageDisplay('list')
     }  
     }> 
       

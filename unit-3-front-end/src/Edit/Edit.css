@@ -1,0 +1,38 @@
+/* Create.css */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px; /* Optional: limit form width */
+    margin: auto; /* Optional: center the form */
+  }
+  
+  /* label {
+    margin: 8px 0 4px;
+  }
+  
+  /* input[type="text"] {
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Change input background color */
+  }
+  
+  input[type="text"]:focus {
+    background-color: #e0f7fa; /* Change input background color on focus */
+    border-color: #00796b;
+  } */
+   */
+  /* button {
+    padding: 10px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #004d40;
+  } */
+  

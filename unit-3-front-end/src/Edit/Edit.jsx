@@ -1,21 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateRecipe } from '../services/recipeService.js'
+import './Edit.css'
 
-function Edit({ recipe, id}) {
+function Edit({ recipe, id, setPageDisplay, handleUpdate }) {
 
     const [formData, setFormData] = useState({
         name: recipe.name,
         ingredients: recipe.ingredients,
-        instructions: recipe.instructions,
+        cuisineType: recipe.cuisineType,
     });
+
+    useEffect(() => {
+        setFormData({
+            name: recipe.name,
+            ingredients: recipe.ingredients,
+            cuisineType: recipe.cuisineType,
+        });
+    }, [recipe]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        updateRecipe(id, formData)
+        await handleUpdate(id, formData)
+        setPageDisplay('list')
     };
 
     return (
@@ -39,11 +49,11 @@ function Edit({ recipe, id}) {
                 onChange={handleChange}
             />
 
-            <label htmlFor="instructions"> Instructions: </label>
+            <label htmlFor="Cuisine Type"> Cuisine Type: </label>
             <input
                 type="text"
-                name="instructions"
-                value={formData.instructions}
+                name="cuisineType"
+                value={formData.cuisineType}
                 onChange={handleChange}
             />
 

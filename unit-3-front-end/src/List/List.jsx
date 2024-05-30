@@ -1,6 +1,7 @@
 import React from 'react'
+import './List.css'
 
-function List({ allRecipes, handleDelete }) {
+function List({ allRecipes, handleDelete, setEditId, setPageDisplay }) {
     console.log(allRecipes)
   return (
 
@@ -15,8 +16,14 @@ function List({ allRecipes, handleDelete }) {
                 <p>{recipe.ingredients}</p>
                 {/* <p>{recipe.ingredients}</p> */}
                 
-                <button onClick={() => handleDelete(recipe._id)}>Delete</button>
-                <button onClick={() => setEditId(recipe._id)}>Edit</button>
+                <button className="deleteButton" onClick={() => handleDelete(recipe._id)}>Delete</button>
+                <button className='editButton' onClick={() => {
+                    setEditId(recipe._id);
+                    setPageDisplay('edit');
+                }
+                }
+                >Edit</button>
+    
             </div>
             </>
         )

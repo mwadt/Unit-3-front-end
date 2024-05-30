@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import './Navbar.css'
 
 function Navbar({ setPageDisplay }) {
     const navigate = useNavigate();

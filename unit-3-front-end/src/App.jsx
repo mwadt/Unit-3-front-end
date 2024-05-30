@@ -1,21 +1,20 @@
 
-import { get, set } from 'mongoose'
 import './App.css'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Create from './Create/Create.jsx'
 import Navbar from './Navbar/Navbar'
 import Edit from './Edit/Edit'
 import List from './List/List'
-import { deleteRecipe } from './services/recipeService'
-import { getAllRecipes } from './services/recipeService'
 
-const mockData=[
-  {name: 'test', ingredients: 'test', instructions: 'test', id: 1},
-  {name: 'test', ingredients: 'test', instructions: 'test', id: 2},
-  {name: 'test', ingredients: 'test', instructions: 'test', id: 3},
+import { getAllRecipes, deleteRecipe, updateRecipe } from './services/recipeService'
 
-]
+// data created to test front end before connecting to backend
+// const mockData=[
+//   {name: 'test', ingredients: 'test', instructions: 'test', id: 1},
+//   {name: 'test', ingredients: 'test', instructions: 'test', id: 2},
+//   {name: 'test', ingredients: 'test', instructions: 'test', id: 3},
+
+// ]
 function App() {
   const [recipeList, setRecipeList] = useState([])
   const [editId, setEditId] = useState(0)
@@ -49,32 +48,56 @@ useEffect(() => {
    getRecipes()
   }
 //set page display and set edit id
-
-
-
+  const handleUpdate = async (id, updatedRecipe) => {
+  await updateRecipe(id, updatedRecipe);
+  getRecipes();
+  }
+  
+  const selectedRecipe = recipeList.find((recipe) => recipe._id === editId)
 
   return (
 <>
-  <Navbar setPageDisplay={setPageDisplay}/>
+  
   {pageDisplay === 'home' && 
-   <h1>Welcome to the Recipe App!</h1>
+    <>
+      <h1>Welcome to the Recipe App!</h1>
+      <Navbar setPageDisplay={setPageDisplay}/>
+   </>
   }  
   {pageDisplay === 'create' &&
-    <Create />
+    <>
+      <Navbar setPageDisplay={setPageDisplay}/>
+      <Create 
+      getRecipes={getRecipes}
+      setPageDisplay={setPageDisplay}/>
+    </>
   }
   {pageDisplay === 'edit' &&
-    <Edit id={ editId }/>
+  <>
+  <Navbar setPageDisplay={setPageDisplay}/>
+    <Edit 
+    id={ editId }
+    recipe={selectedRecipe}
+    setPageDisplay={setPageDisplay}
+    handleUpdate={handleUpdate}
+    />
+  </>
   }
   {pageDisplay === 'list' &&
-    <List allRecipes={recipeList} handleDelete={handleDelete}/>
+  <>
+  <Navbar setPageDisplay={setPageDisplay}/>
+    <List allRecipes={recipeList}
+     handleDelete={handleDelete}
+     setEditId={setEditId}
+     setPageDisplay={setPageDisplay}
+    />
+  </>
   }
-  
-   
 </>
   )
-}
+  }
 
- 
+
   
 
  
